@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0b0d10">
+<title>FitCore</title>
+<style>
+:root{
+  --bg:#080a0d; --card:#11151a; --card2:#171c22; --text:#f5f7fa;
+  --muted:#8d96a3; --line:#252b33; --accent:#b8ff2c; --accent2:#8bd400;
+  --danger:#ff5f57; --radius:22px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+body{min-height:100vh}
+button,input{font:inherit}
+button{border:0;color:inherit}
+.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:92px}
+header{padding:calc(env(safe-area-inset-top) + 18px) 20px 10px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:900;letter-spacing:-1px}
+.logo span{color:var(--accent)}
+.iconbtn{width:42px;height:42px;border-radius:14px;background:var(--card);font-size:19px}
+.page{display:none;padding:12px 18px}.page.active{display:block}
+.hello{margin:8px 2px 18px}.hello small{color:var(--muted);font-size:13px}.hello h1{margin:4px 0 0;font-size:30px;letter-spacing:-1.2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px}
+.hero{background:linear-gradient(145deg,#1b2313,#11151a 65%);border-color:#34431e}
+.hero .top{display:flex;justify-content:space-between;align-items:flex-start}.eyebrow{text-transform:uppercase;color:var(--accent);font-weight:800;font-size:11px;letter-spacing:1px}
+.hero h2{margin:7px 0 4px;font-size:25px}.muted{color:var(--muted)}
+.progress{height:9px;background:#252b30;border-radius:99px;overflow:hidden;margin:16px 0 10px}.bar{height:100%;width:63%;background:var(--accent);border-radius:99px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--card2);padding:14px;border-radius:17px}.stat b{display:block;font-size:21px}.stat small{color:var(--muted);font-size:11px}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 10px}.section-title h3{margin:0;font-size:18px}.link{color:var(--accent);font-size:13px;background:none}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:11px}.quick button{padding:17px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:19px}.quick .emoji{font-size:25px}.quick strong{display:block;margin-top:9px}.quick small{color:var(--muted)}
+.workout{display:flex;gap:13px;align-items:center}.workout .date{width:47px;height:47px;border-radius:15px;background:#20262d;display:grid;place-items:center;font-weight:800}.workout b{display:block}.workout small{color:var(--muted)}
+.nav{position:fixed;z-index:20;bottom:0;left:0;right:0;background:rgba(10,12,15,.93);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:8px 12px calc(env(safe-area-inset-bottom) + 8px);display:flex;justify-content:center}
+.nav-inner{max-width:520px;width:100%;display:grid;grid-template-columns:repeat(5,1fr)}
+.nav button{background:none;color:#707985;padding:7px 0;font-size:10px}.nav button.active{color:var(--accent)}.nav .ni{font-size:20px;display:block;margin-bottom:3px}
+.metric{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid var(--line)}.metric:last-child{border:0}.metric b{font-size:19px}
+.primary{width:100%;padding:15px;border-radius:16px;background:var(--accent);color:#0b0d08;font-weight:900;margin-top:8px}
+input{width:100%;background:#0d1014;color:white;border:1px solid var(--line);padding:14px;border-radius:14px;outline:none}
+input:focus{border-color:var(--accent)}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.exercise{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.exercise:last-child{border:0}.pill{background:#263018;color:var(--accent);padding:6px 9px;border-radius:9px;font-size:11px;font-weight:800}
+.food{text-align:center;padding:22px 10px;border:1px dashed #39414a;border-radius:18px}.food .big{font-size:45px}.food h3{margin:8px 0 4px}
+.empty{color:var(--muted);text-align:center;padding:28px 10px}
+.toast{position:fixed;z-index:50;left:50%;bottom:105px;transform:translateX(-50%) translateY(20px);background:#f5f7fa;color:#0a0c0f;padding:12px 18px;border-radius:14px;font-weight:700;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}.toast.show{opacity:1;transform:translateX(-50%)}
+@media(min-width:700px){body{background:#15181c}.app{background:var(--bg);box-shadow:0 0 70px #000;min-height:100vh}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="logo">FIT<span>CORE</span></div><button class="iconbtn" onclick="showToast('Perfil em breve')">👤</button></header>
+
+<section id="home" class="page active">
+  <div class="hello"><small>QUINTA-FEIRA, 8 DE OUTUBRO</small><h1>Bom dia, Ze 👋</h1></div>
+  <div class="card hero">
+    <div class="top"><div><div class="eyebrow">Seu objetivo</div><h2>Definição</h2><div class="muted">Continue firme no plano.</div></div><div style="font-size:32px">🔥</div></div>
+    <div class="progress"><div class="bar"></div></div>
+    <small class="muted">63% do objetivo semanal</small>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>92,0</b><small>kg atuais</small></div>
+    <div class="stat"><b>2.450</b><small>kcal meta</small></div>
+    <div class="stat"><b>156g</b><small>proteína</small></div>
+  </div>
+  <div class="section-title"><h3>Acesso rápido</h3></div>
+  <div class="quick">
+    <button onclick="go('food')"><span class="emoji">📸</span><strong>Analisar comida</strong><small>Foto + peso</small></button>
+    <button onclick="go('workout')"><span class="emoji">🏋️</span><strong>Registrar treino</strong><small>Começar agora</small></button>
+  </div>
+  <div class="section-title"><h3>Último treino</h3><button class="link" onclick="go('workout')">Ver tudo</button></div>
+  <div class="card workout"><div class="date">07<br><small>OUT</small></div><div><b>Peito + Bíceps</b><small>8 exercícios · 58 min</small></div><span style="margin-left:auto;color:var(--accent)">✓</span></div>
+</section>
+
+<section id="food" class="page">
+  <div class="hello"><small>ALIMENTAÇÃO</small><h1>O que você comeu?</h1></div>
+  <div class="card">
+    <div class="food"><div class="big">📸</div><h3>Analisar uma refeição</h3><div class="muted">No app final, você poderá tirar uma foto e informar o peso da comida.</div><button class="primary" onclick="demoFood()">Simular análise</button></div>
+  </div>
+  <div class="card">
+    <div class="section-title" style="margin-top:0"><h3>Resumo de hoje</h3></div>
+    <div class="metric"><span>🔥 Calorias</span><b>1.240 / 2.450 kcal</b></div>
+    <div class="metric"><span>🥩 Proteína</span><b>82 / 156 g</b></div>
+    <div class="metric"><span>🍚 Carboidratos</span><b>136 / 280 g</b></div>
+    <div class="metric"><span>🥑 Gorduras</span><b>39 / 75 g</b></div>
+  </div>
+</section>
+
+<section id="workout" class="page">
+  <div class="hello"><small>TREINOS</small><h1>Seu treino</h1></div>
+  <div class="card hero"><div class="eyebrow">Treino de hoje</div><h2>Peito + Bíceps</h2><div class="muted">8 exercícios · aproximadamente 60 min</div><button class="primary" onclick="startWorkout()">Começar treino</button></div>
+  <div class="card">
+    <div class="section-title" style="margin-top:0"><h3>Exercícios</h3></div>
+    <div class="exercise"><span>Supino reto</span><span class="pill">4 × 10</span></div>
+    <div class="exercise"><span>Supino inclinado</span><span class="pill">3 × 10</span></div>
+    <div class="exercise"><span>Crucifixo</span><span class="pill">3 × 12</span></div>
+    <div class="exercise"><span>Rosca direta</span><span class="pill">3 × 10</span></div>
+  </div>
+  <button class="primary" onclick="saveWorkout()">✓ Marcar treino como concluído</button>
+</section>
+
+<section id="progress" class="page">
+  <div class="hello"><small>EVOLUÇÃO</small><h1>Seu progresso</h1></div>
+  <div class="card"><div class="eyebrow">PESO ATUAL</div><div style="font-size:42px;font-weight:900;margin:5px 0">92,0 kg</div><div style="color:var(--accent)">↓ 1,4 kg nos últimos 30 dias</div></div>
+  <div class="card">
+    <div class="section-title" style="margin-top:0"><h3>Meta</h3></div>
+    <div class="metric"><span>Peso inicial</span><b>93,4 kg</b></div>
+    <div class="metric"><span>Atual</span><b>92,0 kg</b></div>
+    <div class="metric"><span>Objetivo</span><b>88,0 kg</b></div>
+  </div>
+  <div class="card"><div class="section-title" style="margin-top:0"><h3>Fotos corporais</h3></div><div class="food"><div class="big">📷</div><div class="muted">No app final, você poderá guardar fotos e comparar sua evolução.</div></div></div>
+</section>
+
+<section id="profile" class="page">
+  <div class="hello"><small>PERFIL</small><h1>Seus dados</h1></div>
+  <div class="card">
+    <div class="formgrid">
+      <div><small class="muted">Altura (cm)</small><input id="height" value="174" type="number"></div>
+      <div><small class="muted">Peso (kg)</small><input id="weight" value="92" type="number"></div>
+      <div><small class="muted">Idade</small><input id="age" value="18" type="number"></div>
+      <div><small class="muted">Meta (kg)</small><input id="goal" value="88" type="number"></div>
+    </div>
+    <button class="primary" onclick="saveProfile()">Salvar dados</button>
+  </div>
+  <div class="card"><div class="metric"><span>IMC estimado</span><b id="bmi">30,4</b></div><div class="metric"><span>Objetivo</span><b>Definição</b></div></div>
+</section>
+
+<nav class="nav"><div class="nav-inner">
+<button class="active" onclick="go('home',this)"><span class="ni">⌂</span>Início</button>
+<button onclick="go('food',this)"><span class="ni">🍽</span>Comida</button>
+<button onclick="go('workout',this)"><span class="ni">🏋️</span>Treinos</button>
+<button onclick="go('progress',this)"><span class="ni">📈</span>Evolução</button>
+<button onclick="go('profile',this)"><span class="ni">👤</span>Perfil</button>
+</div></nav>
+<div id="toast" class="toast"></div>
+</div>
+<script>
+function go(id,btn){
+  try {
+    document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+    var page = document.getElementById(id);
+    if(page) page.classList.add('active');
+
+    document.querySelectorAll('.nav button').forEach(function(b){ b.classList.remove('active'); });
+
+    if(btn){
+      btn.classList.add('active');
+    } else {
+      var map={home:0,food:1,workout:2,progress:3,profile:4};
+      var buttons=document.querySelectorAll('.nav button');
+      if(buttons[map[id]]) buttons[map[id]].classList.add('active');
+    }
+
+    window.scrollTo(0,0);
+  } catch(e) {
+    alert('Não foi possível abrir esta tela.');
+  }
+}
+function showToast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2200)}
+function demoFood(){showToast('Protótipo: análise por IA será adicionada depois 🤖');}
+function startWorkout(){showToast('Treino iniciado! Cronômetro será adicionado.');}
+function saveWorkout(){
+  try { localStorage.setItem('lastWorkout',new Date().toISOString()); } catch(e) {}
+  showToast('Treino salvo no histórico ✓');
+}
+function saveProfile(){
+ const h=+document.getElementById('height').value,w=+document.getElementById('weight').value;
+ if(h&&w){
+  document.getElementById('bmi').textContent=(w/((h/100)**2)).toFixed(1);
+  try {
+    localStorage.setItem('fitProfile',JSON.stringify({
+      h:w ? h : '',
+      w:w,
+      age:document.getElementById('age').value,
+      goal:document.getElementById('goal').value
+    }));
+  } catch(e) {}
+  showToast('Dados salvos ✓');
+}
+}
+try {
+  var saved = window.localStorage ? localStorage.getItem('fitProfile') : null;
+  if(saved){
+    var p=JSON.parse(saved);
+    document.getElementById('height').value=p.h;
+    document.getElementById('weight').value=p.w;
+    document.getElementById('age').value=p.age;
+    document.getElementById('goal').value=p.goal;
+    document.getElementById('bmi').textContent=(p.w/((p.h/100)**2)).toFixed(1);
+  }
+} catch(e) {}
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('button').forEach(function(button){
+    button.addEventListener('touchstart', function(){ button.style.transform='scale(.97)'; }, {passive:true});
+    button.addEventListener('touchend', function(){ button.style.transform=''; }, {passive:true});
+  });
+});
+</script>
+</body>
+</html>
